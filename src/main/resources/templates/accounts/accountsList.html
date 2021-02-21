@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Accounts List</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<h1 align="center">Accounts List Page</h1>
+<h3>Accounts Nbr = <span th:text="${accountsNumber}"></span></h3>
+<div th:switch="${accountsList}">
+<h2 th:case="null">No Accounts yet!</h2>
+<div th:case="*">
+<table border="2" align="left">
+<thead align="center">
+<tr>
+<th>ID</th>
+<th> Name </th>
+<th> Last Name </th>
+<th> Email </th>
+<th> Status </th>
+<th> Current Role </th>
+<th> Update Role </th>
+<th> Activation </th>
+</tr>
+</thead>
+<tbody align="center">
+
+<tr th:each="account:${accountsList}">
+<td th:text="${account.id}"></td>
+<td th:text="${account.name}"></td>
+<td th:text="${account.lastName}"></td>
+<td th:text="${account.email}"></td>
+<td>
+<span th:if="${account.active} == '0'" text="Not Activ"> No Activ </span>
+<span th:if="${account.active} == '1'" text="Is Activ"> Activ </span> 
+
+</td>
+<td th:text="${account.roles[0].role}"></td>
+<td>
+<form th:action="@{/accounts/editRole}" method="post">
+<select name="newRole">
+<option value="USER">USER</option>
+<option value="ADMIN">ADMIN</option>
+<option value="SUPER ADMIN">SUPER ADMIN</option>
+</select><br/>
+<input type="hidden" name="id" th:value="${account.id}" th:attr="name='id'"/>
+<input type="submit" value="Update role"/>
+</form>
+</td>
+<td>
+<a th:href="@{/accounts/activate/{id}/{email} (id=${account.id},email=${account.email})}">Activate</a>
+<a th:href="@{/accounts/disactivate/{id}/{email} (id=${account.id},email=${account.email})}">Disactivate</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div th:replace="fragments/footer::footer"/>
+<footer>
+<div>
+<a th:href="@{/home}"> HOME </a>
+</div>
+</footer>
+</body>
+</html>
