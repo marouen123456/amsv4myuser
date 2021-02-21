@@ -36,7 +36,7 @@
 <span th:if="${account.active} == '1'" text="Is Activ"> Activ </span> 
 
 </td>
-<td th:text="${account.roles[0].role}"></td>
+<td th:text="${account.roles}"></td>
 <td>
 <form th:action="@{/accounts/editRole}" method="post">
 <select name="newRole">
