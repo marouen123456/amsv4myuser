@@ -38,4 +38,8 @@ public class UserService {
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
+	public void addUserRole (Role role) {
+		role.setRole("USER");
+		roleRepository.save(role);
+	}
 }
