@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				
 				.antMatchers("/article/**").hasAnyAuthority("SUPER ADMIN", "ADMIN", "USER")
 				.antMatchers("/provider/**").hasAnyAuthority("SUPER ADMIN", "ADMIN")
-				.antMatchers("/role/**").hasAuthority("SUPER ADMIN")
+				.antMatchers("/role/**").permitAll()
 				.antMatchers("/accounts/**").hasAuthority("SUPER ADMIN")
 				
 				.anyRequest().authenticated().and().csrf().disable().formLogin() // l'accès de fait via un formulaire
